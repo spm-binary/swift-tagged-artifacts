@@ -50,7 +50,13 @@ for product in "${products[@]}"; do
       BUILD_LIBRARY_FOR_DISTRIBUTION=NO \
       ONLY_ACTIVE_ARCH=NO
 
-    frameworks+=("-framework" "${archive_path}/Products/Library/Frameworks/${product}.framework")
+    framework_path="$(find "${archive_path}/Products" -type d -name "${product}.framework" -print -quit)"
+    if [[ -z "$framework_path" ]]; then
+      echo "error: ${product}.framework not found in ${archive_path}" >&2
+      find "$archive_path" -maxdepth 5 -print >&2
+      exit 1
+    fi
+    frameworks+=("-framework" "$framework_path")
   done
 
   xcframework_path="${dist_dir}/${product}.xcframework"
