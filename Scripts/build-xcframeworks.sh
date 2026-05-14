@@ -43,7 +43,7 @@ for product in "${products[@]}"; do
       -destination "$destination" \
       -archivePath "$archive_path" \
       SKIP_INSTALL=NO \
-      BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+      BUILD_LIBRARY_FOR_DISTRIBUTION=NO \
       ONLY_ACTIVE_ARCH=NO
 
     frameworks+=("-framework" "${archive_path}/Products/Library/Frameworks/${product}.framework")
