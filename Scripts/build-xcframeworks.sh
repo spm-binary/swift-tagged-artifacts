@@ -29,6 +29,8 @@ git clone --depth 1 --branch "$upstream_ref" "$upstream_url" "$source_dir"
 checksums_file="${dist_dir}/checksums.txt"
 : > "$checksums_file"
 
+pushd "$source_dir" >/dev/null
+
 for product in "${products[@]}"; do
   frameworks=()
 
@@ -57,3 +59,5 @@ for product in "${products[@]}"; do
   checksum="$(swift package compute-checksum "$zip_path")"
   printf "%s  %s\n" "$checksum" "$(basename "$zip_path")" >> "$checksums_file"
 done
+
+popd >/dev/null
