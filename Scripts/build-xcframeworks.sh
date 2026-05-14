@@ -31,6 +31,10 @@ checksums_file="${dist_dir}/checksums.txt"
 
 pushd "$source_dir" >/dev/null
 
+perl -0pi -e 's/\.library\(name: "Tagged", targets: \["Tagged"\]\)/.library(name: "Tagged", type: .dynamic, targets: ["Tagged"])/g' Package.swift
+perl -0pi -e 's/\.library\(name: "TaggedMoney", targets: \["TaggedMoney"\]\)/.library(name: "TaggedMoney", type: .dynamic, targets: ["TaggedMoney"])/g' Package.swift
+perl -0pi -e 's/\.library\(name: "TaggedTime", targets: \["TaggedTime"\]\)/.library(name: "TaggedTime", type: .dynamic, targets: ["TaggedTime"])/g' Package.swift
+
 for product in "${products[@]}"; do
   frameworks=()
 
